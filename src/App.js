@@ -15,7 +15,7 @@ const styles = {
   demo: {
     width: '100px',
     height: '50px',
-    margin: '10px',
+    margin: '5px 10px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -35,9 +35,7 @@ const styles = {
   }
 }
 
-const Bullets = ({ color }) => {
-  console.log('color', color)
-return (
+const Bullets = ({ color }) => (
   <>
     <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmallest)} />
     <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmaller)} />
@@ -46,40 +44,32 @@ return (
     <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmallest)} />
   </>
 )
-}
+
+const group = (color, name) => (
+  <>
+    <h1>{name} dots</h1>
+    <div style={styles.container}>
+      {
+        Colors.map((hexValue) => (
+          <div
+            style={mix(styles.demo, { backgroundColor: hexValue })}
+            key={hexValue}
+          >
+            <Bullets color={color} />
+          </div>
+        ))
+      }
+    </div>
+  </>
+)
 
 
 const App = () => {
   return (
     <div style={styles.page}>
-      <h1>White dots</h1>
-      <div style={styles.container}>
-        {
-          Colors.map((hexValue) => (
-            <div
-              style={mix(styles.demo, { backgroundColor: hexValue })}
-              key={hexValue}
-            >
-              <Bullets color='#fff' />
-            </div>
-          ))
-        }
-      </div>
-
-      <h1>Black dots</h1>
-      <div style={styles.container}>
-        {
-          Colors.map((hexValue) => (
-            <div
-              style={mix(styles.demo, { backgroundColor: hexValue })}
-              key={hexValue}
-            >
-              <Bullets color='#000' />
-            </div>
-          ))
-        }
-      </div>
-
+      {group('#fff', 'White')}
+      {group('#000', 'Black')}
+      {group('#777', 'Grey')}
     </div>
   )
 }
