@@ -21,10 +21,9 @@ const styles = {
     alignItems: 'center'
   },
   bullet: {
-    width: '8px',
-    height: '8px',
+    width: '6px',
+    height: '6px',
     borderRadius: '100%',
-    backgroundColor: 'white',
     margin: '4px'
   },
   bulletSmaller: {
@@ -35,41 +34,65 @@ const styles = {
   }
 }
 
-const Bullets = ({ color }) => (
-  <>
-    <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmallest)} />
-    <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmaller)} />
-    <div style={mix(styles.bullet, { backgroundColor: color })} />
-    <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmaller)} />
-    <div style={mix(styles.bullet, { backgroundColor: color }, styles.bulletSmallest)} />
-  </>
-)
 
-const group = (color, name) => (
-  <>
-    <h1>{name} dots</h1>
-    <div style={styles.container}>
-      {
-        Colors.map((hexValue) => (
-          <div
-            style={mix(styles.demo, { backgroundColor: hexValue })}
-            key={hexValue}
-          >
-            <Bullets color={color} />
-          </div>
-        ))
-      }
-    </div>
-  </>
-)
+const Block = ({ color, name, glowColor }) => {
 
+  const bulletStyles = mix(
+    styles.bullet,
+    glowColor && { boxShadow: `0 0 3px ${glowColor}` },
+    { background: color }
+  )
+
+  return (
+    <>
+      <h1>{name}</h1>
+      <div style={styles.container}>
+        {
+          Colors.map((hexValue) => (
+            <div
+              style={mix( styles.demo, { backgroundColor: hexValue } )}
+              key={hexValue}
+              className='block'
+            >
+              <div style={mix(bulletStyles, styles.bulletSmallest)} />
+              <div style={mix(bulletStyles, styles.bulletSmaller)} />
+              <div style={mix(bulletStyles)} />
+              <div style={mix(bulletStyles, styles.bulletSmaller)} />
+              <div style={mix(bulletStyles, styles.bulletSmallest)} />
+            </div>
+          ))
+        }
+      </div>
+    </>
+  )
+}
 
 const App = () => {
   return (
     <div style={styles.page}>
-      {group('#fff', 'White')}
-      {group('#000', 'Black')}
-      {group('#777', 'Grey')}
+      <Block color='#fff' name='White' />
+      <Block color='#000' name='Black' />
+      <Block color='#777' name='Grey' />
+
+      <Block color='#fff' name='White with #ddd glow' glowColor='#ddd' />
+      <Block color='#fff' name='White with #ccc glow' glowColor='#ccc' />
+      <Block color='#fff' name='White with #bbb glow' glowColor='#bbb' />
+      <Block color='#fff' name='White with #aaa glow' glowColor='#aaa' />
+      <Block color='#fff' name='White with #999 glow' glowColor='#999' />
+      <Block color='#fff' name='White with #888 glow' glowColor='#888' />
+      <Block color='#fff' name='White with #777 glow' glowColor='#777' />
+      <Block color='#fff' name='White with #666 glow' glowColor='#666' />
+
+      <Block color='#000' name='Black with #fff glow' glowColor='#fff' />
+      <Block color='#000' name='Black with #eee glow' glowColor='#eee' />
+      <Block color='#000' name='Black with #ddd glow' glowColor='#ddd' />
+      <Block color='#000' name='Black with #ccc glow' glowColor='#ccc' />
+      <Block color='#000' name='Black with #bbb glow' glowColor='#bbb' />
+      <Block color='#000' name='Black with #aaa glow' glowColor='#aaa' />
+      <Block color='#000' name='Black with #999 glow' glowColor='#999' />
+      <Block color='#000' name='Black with #888 glow' glowColor='#888' />
+      <Block color='#000' name='Black with #777 glow' glowColor='#777' />
+      <Block color='#000' name='Black with #666 glow' glowColor='#666' />
     </div>
   )
 }
