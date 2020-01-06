@@ -54,9 +54,12 @@ const styles = {
 const mix = (base, ...extra) => Object.assign({}, base, ...extra)
 
 const Block = ({ dotColor, glowColor, glowBlur, glowSpread }) => {
+  const blur = glowBlur && `${glowBlur}px`
+  const spread = glowSpread && `${glowSpread}px`
+
   const bulletStyles = mix(
     styles.bullet,
-    glowColor && { boxShadow: `0 0 3px ${glowColor}` },
+    glowColor && { boxShadow: `0 0 ${blur} ${spread} ${glowColor}` },
     { background: dotColor }
   )
 
